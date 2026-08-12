@@ -1,0 +1,227 @@
+<title>Aleksander Gosk - Platform Engineer</title>
+<style>
+  :root {
+    --bg: #f1f3f6; --surface: #ffffff; --surface-2: #f7f8fa;
+    --ink: #14171c; --muted: #59626f; --faint: #8b94a1; --line: #e3e7ec;
+    --accent: #a4560f; --accent-soft: #f2e6d8; --status: #1a9d5a;
+    --shadow: 0 1px 2px rgba(20,23,28,.04), 0 8px 24px rgba(20,23,28,.05);
+    --radius: 10px; --maxw: 940px;
+    --mono: ui-monospace, "SF Mono", "SFMono-Regular", "Menlo", "Consolas", monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d0f12; --surface: #15181d; --surface-2: #1a1e24;
+      --ink: #eceef2; --muted: #9aa4b2; --faint: #69727f; --line: #262b33;
+      --accent: #e0913f; --accent-soft: #2a2015; --status: #37c47c;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d0f12; --surface: #15181d; --surface-2: #1a1e24;
+    --ink: #eceef2; --muted: #9aa4b2; --faint: #69727f; --line: #262b33;
+    --accent: #e0913f; --accent-soft: #2a2015; --status: #37c47c;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"] {
+    --bg: #f1f3f6; --surface: #ffffff; --surface-2: #f7f8fa;
+    --ink: #14171c; --muted: #59626f; --faint: #8b94a1; --line: #e3e7ec;
+    --accent: #a4560f; --accent-soft: #f2e6d8; --status: #1a9d5a;
+    --shadow: 0 1px 2px rgba(20,23,28,.04), 0 8px 24px rgba(20,23,28,.05);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  .eyebrow { font-family: var(--mono); font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin: 0; }
+
+  header.bar { border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 80%, transparent); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 5; }
+  .bar-inner { display: flex; align-items: center; justify-content: space-between; height: 54px; }
+  .brand { font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: .02em; }
+  .brand .dot { color: var(--accent); }
+  .status { font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--muted); display: flex; align-items: center; gap: 7px; }
+  .led { width: 8px; height: 8px; border-radius: 50%; background: var(--status); box-shadow: 0 0 0 3px color-mix(in srgb, var(--status) 22%, transparent); }
+
+  .hero { padding: 76px 0 60px; }
+  .hero h1 { font-size: clamp(38px, 6.4vw, 66px); line-height: 1.02; letter-spacing: -.03em; font-weight: 800; margin: 18px 0 0; text-wrap: balance; }
+  .hero .lede { font-size: clamp(17px, 2.1vw, 20px); color: var(--muted); max-width: 60ch; margin: 20px 0 0; }
+  .hero .lede strong { color: var(--ink); font-weight: 600; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .btn { font-family: var(--sans); font-size: 14.5px; font-weight: 600; text-decoration: none; padding: 11px 18px; border-radius: 8px; border: 1px solid var(--line); color: var(--ink); background: var(--surface); transition: transform .12s ease, border-color .12s ease, background .12s ease; }
+  .btn:hover { transform: translateY(-1px); border-color: var(--accent); }
+  .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn.primary:hover { filter: brightness(1.05); }
+
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
+  .metric { padding: 22px 22px; border-left: 1px solid var(--line); }
+  .metric:first-child { border-left: none; }
+  .metric .num { font-family: var(--mono); font-size: 30px; font-weight: 600; letter-spacing: -.02em; font-variant-numeric: tabular-nums; color: var(--ink); display: block; }
+  .metric .num .unit { color: var(--accent); }
+  .metric .label { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin-top: 6px; }
+
+  section.block { padding: 58px 0; }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 26px; }
+  .sec-head h2 { font-size: 22px; letter-spacing: -.01em; margin: 0; font-weight: 700; }
+  .sec-head .count { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+
+  .log { display: flex; flex-direction: column; gap: 0; }
+  .entry { display: grid; grid-template-columns: 116px 1fr; gap: 26px; padding: 22px 0; border-top: 1px solid var(--line); }
+  .entry:last-child { border-bottom: 1px solid var(--line); }
+  .entry .meta { font-family: var(--mono); font-size: 12px; color: var(--faint); padding-top: 3px; }
+  .entry .date { display: block; letter-spacing: .02em; }
+  .tag { display: inline-block; margin-top: 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 3px 8px; border-radius: 5px; }
+  .entry h3 { margin: 0 0 6px; font-size: 17px; font-weight: 650; letter-spacing: -.01em; }
+  .entry p { margin: 0; color: var(--muted); font-size: 15px; max-width: 62ch; }
+  .entry .impact { font-family: var(--mono); font-size: 12.5px; color: var(--ink); margin-top: 9px; font-variant-numeric: tabular-nums; }
+  .entry .impact b { color: var(--accent); font-weight: 600; }
+  .entry .readmore { display: inline-block; margin-top: 12px; font-family: var(--mono); font-size: 12.5px; letter-spacing: .02em; color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); padding-bottom: 1px; transition: border-color .12s ease; }
+  .entry .readmore:hover { border-color: var(--accent); }
+
+  .writing { display: flex; flex-direction: column; }
+  .post { display: grid; grid-template-columns: 116px 1fr auto; gap: 26px; align-items: baseline; padding: 20px 0; border-top: 1px solid var(--line); text-decoration: none; color: inherit; transition: padding-left .14s ease; }
+  .post:last-child { border-bottom: 1px solid var(--line); }
+  .post:hover { padding-left: 8px; }
+  .post .pdate { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+  .post .ptitle { font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
+  .post .ptitle .pcat { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 4px; }
+  .post .parrow { font-family: var(--mono); color: var(--faint); font-size: 15px; }
+  .post:hover .parrow { color: var(--accent); }
+
+  .stack-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .stack-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 20px 22px; }
+  .stack-card .k { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .chip { font-size: 13px; padding: 5px 11px; border-radius: 20px; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink); }
+
+  .cv-card { border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); padding: 26px 26px; }
+  .cv-card p { margin: 0; color: var(--muted); font-size: 15.5px; max-width: 62ch; }
+  .cv-card p strong { color: var(--ink); font-weight: 600; }
+  .cv-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+
+  footer { border-top: 1px solid var(--line); padding: 40px 0 60px; }
+  .foot-grid { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; }
+  .foot-grid h2 { font-size: 22px; margin: 0; letter-spacing: -.01em; }
+  .links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .links a { font-family: var(--mono); font-size: 13px; color: var(--muted); text-decoration: none; }
+  .links a:hover { color: var(--accent); }
+  .colophon { font-family: var(--mono); font-size: 11px; color: var(--faint); margin-top: 26px; }
+
+  a:focus-visible, .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .reveal { opacity: 0; transform: translateY(10px); animation: rise .6s cubic-bezier(.2,.7,.3,1) forwards; }
+  .reveal.d1 { animation-delay: .05s; }
+  .reveal.d2 { animation-delay: .12s; }
+  .reveal.d3 { animation-delay: .2s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .reveal { animation: none; opacity: 1; transform: none; } }
+
+  @media (max-width: 720px) {
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .metric:nth-child(3) { border-left: none; }
+    .metric:nth-child(3), .metric:nth-child(4) { border-top: 1px solid var(--line); }
+    .entry { grid-template-columns: 1fr; gap: 8px; }
+    .stack-grid { grid-template-columns: 1fr; }
+    .hero { padding: 52px 0 44px; }
+  }
+</style>
+
+<header class="bar">
+  <div class="wrap bar-inner">
+    <span class="brand">gosk<span class="dot">.</span>dev</span>
+    <span class="status">Berlin &middot; CET</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <p class="eyebrow reveal">Senior Platform &amp; Infrastructure Engineer</p>
+    <h1 class="reveal d1">Aleksander Gosk</h1>
+    <p class="lede reveal d2">I build and tend the cloud platforms teams ship on - <strong>AWS, Terraform, and Ruby on Rails</strong> - with a bias for reliability, cost efficiency, and paved roads that make the right thing the easy thing.</p>
+    <div class="cta-row reveal d3">
+      <a class="btn primary" href="#wins">See selected wins</a>
+      <a class="btn" href="mailto:agosk@post.pl">Get in touch</a>
+    </div>
+  </section>
+
+  <section class="block" id="wins">
+    <div class="sec-head">
+      <h2>Selected wins</h2>
+      <span class="count">// most recent first</span>
+    </div>
+    <div class="log">
+
+      <article class="entry">
+        <div class="meta"><span class="date">2026 &middot; Q1</span><span class="tag">Performance</span></div>
+        <div>
+          <h3>Cut a Rails API's CI test suite from 11 minutes to under 3</h3>
+          <p>Traced a months-long CI-vs-local gap to production networking middleware (retries + DNS SRV lookups) running inside the test suite, and added a first-class test mode to the shared HTTP client.</p>
+          <div class="impact">impact &rarr; CI runtime <b>&minus;75%</b> &middot; ~19h reclaimed and counting</div>
+          <a class="readmore" href="ci-pipeline-speedup.html">Read the writeup &rarr;</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="block" id="writing">
+    <div class="sec-head">
+      <h2>Writing</h2>
+      <span class="count">// notes from the work</span>
+    </div>
+    <div class="writing">
+      <a class="post" href="ci-pipeline-speedup.html">
+        <span class="pdate">Mar 2026</span>
+        <span class="ptitle"><span class="pcat">Performance &middot; CI/CD</span>Cutting CI running tests from 11 minutes to 3</span>
+        <span class="parrow">&rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><h2>Stack</h2><span class="count">// day-to-day</span></div>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <div class="k">Cloud &amp; Infra</div>
+        <div class="chips">
+          <span class="chip">AWS</span><span class="chip">Terraform</span><span class="chip">Lambda</span>
+          <span class="chip">ECS / Fargate</span><span class="chip">Graviton / ARM64</span><span class="chip">GitHub Actions</span>
+        </div>
+      </div>
+      <div class="stack-card">
+        <div class="k">Languages &amp; Runtime</div>
+        <div class="chips">
+          <span class="chip">Ruby on Rails</span><span class="chip">Go</span><span class="chip">Bash</span>
+        </div>
+      </div>
+      <div class="stack-card">
+        <div class="k">Observability</div>
+        <div class="chips">
+          <span class="chip">Datadog</span><span class="chip">CloudWatch</span><span class="chip">PagerDuty</span>
+        </div>
+      </div>
+      <div class="stack-card">
+        <div class="k">Ways of working</div>
+        <div class="chips">
+          <span class="chip">IaC everything</span><span class="chip">Cost-aware design</span><span class="chip">Paved roads</span><span class="chip">Blameless postmortems</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <h2>Let's talk Ruby, platform engineering or SRE!.</h2>
+      <div class="links">
+        <a href="mailto:agosk@post.pl">EMAIL</a>
+        <a href="https://www.linkedin.com/in/aleksander-gosk-8011b5149/">LINKEDIN</a>
+        <a href="https://github.com/alek-gosk">GITHUB</a>
+      </div>
+    </div>
+    <p class="colophon">Built as a static site &middot; hosted on GitHub Pages</p>
+  </div>
+</footer>
